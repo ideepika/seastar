@@ -146,7 +146,7 @@ set (CMAKE_BUILD_TYPE
   FORCE)
 
 if (NOT CMAKE_BUILD_TYPE)
-  set (CMAKE_BUILD_TYPE "Release")
+	set (CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif ()
 
 set (Seastar_ALLOC_PAGE_SIZE
@@ -911,6 +911,12 @@ if (ErrorUnused_FOUND)
     target_compile_options (seastar
       PUBLIC -Wno-error=unused-result)
   endif ()
+endif ()
+
+if (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+ target_compile_definitions (seastar
+   PUBLIC
+     SEASTAR_DEFAULT_ALLOCATOR)
 endif ()
 
 if ((CMAKE_BUILD_TYPE STREQUAL "Debug") OR (CMAKE_BUILD_TYPE STREQUAL "Sanitize"))
